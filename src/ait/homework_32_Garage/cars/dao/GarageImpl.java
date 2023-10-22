@@ -4,12 +4,12 @@ import ait.homework_32_Garage.cars.model.Car;
 
 import java.util.function.Predicate;
 
-public class GarageImpl implements Garage{
+public class GarageImpl implements Garage {
     private Car[] cars;
     private int sizeActual;
 
-    public GarageImpl(int capacity){
-        cars= new Car[capacity];
+    public GarageImpl(int capacity) {
+        cars = new Car[capacity];
     }
 
     public int getSizeActual() {
@@ -21,25 +21,25 @@ public class GarageImpl implements Garage{
     }
 
 
-
     @Override
     public boolean addCar(Car car) {
-        if (car ==null||sizeActual==cars.length||findCarByRegNumber(car.getRegNumber())!=null){
+        if (car == null || sizeActual == cars.length || findCarByRegNumber(car.getRegNumber()) != null) {
             return false;
-        }cars[sizeActual++]=car;
+        }
+        cars[sizeActual++] = car;
         return true;
     }
 
     @Override
     public Car removeCar(String regNumber) {
         for (int i = 0; i < sizeActual; i++) {
-           if (cars[i].getRegNumber().equals(regNumber)) {
-               Car carToRemove =cars[i];
-               cars[i]=cars[--sizeActual];
-               cars[sizeActual]=null;
-               return carToRemove;
+            if (cars[i].getRegNumber().equals(regNumber)) {
+                Car carToRemove = cars[i];
+                cars[i] = cars[--sizeActual];
+                cars[sizeActual] = null;
+                return carToRemove;
 
-           }
+            }
 
         }
         return null;
@@ -48,7 +48,7 @@ public class GarageImpl implements Garage{
     @Override
     public Car findCarByRegNumber(String regNumber) {
         for (int i = 0; i < sizeActual; i++) {
-            if (cars[i].getRegNumber().equals(regNumber)){
+            if (cars[i].getRegNumber().equals(regNumber)) {
                 return cars[i];
             }
         }
@@ -57,22 +57,22 @@ public class GarageImpl implements Garage{
 
     @Override
     public Car[] findCarsByModel(String model) {
-        return findCarsByPredicate(c ->c.getModel().equals(model));
+        return findCarsByPredicate(c -> c.getModel().equals(model));
     }
 
     @Override
     public Car[] findCarsByCompany(String company) {
-        return findCarsByPredicate(c ->c.getCompany().equals(company));
+        return findCarsByPredicate(c -> c.getCompany().equals(company));
     }
 
     @Override
     public Car[] findCarsByEngine(double min, double max) {
-        return findCarsByPredicate(c ->c.getEngine()>=min && c.getEngine()<max);
+        return findCarsByPredicate(c -> c.getEngine() >= min && c.getEngine() < max);
     }
 
     @Override
     public Car[] findCarsByColor(String color) {
-        return findCarsByPredicate(c ->c.getColor().equals(color));
+        return findCarsByPredicate(c -> c.getColor().equals(color));
     }
 
     private Car[] findCarsByPredicate(Predicate<Car> predicate) {

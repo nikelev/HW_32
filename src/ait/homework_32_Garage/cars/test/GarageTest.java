@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GarageImplTest {
+class GarageTest {
     Garage garage;
     Car[] cars;
-
 
     @BeforeEach
     void setUp() {
@@ -21,7 +20,9 @@ class GarageImplTest {
         cars[1]=new Car("222", "530", "BMW",3.0, "black");
         cars[2]=new Car("333", "80", "Audi",2.0, "white");
         cars[3]=new Car("444", "C180", "Mercedes",1.8, "grey");
-
+        for (int i = 0; i < cars.length; i++) {
+            garage.addCar(cars[i]);
+        }
     }
 
     @Test
@@ -32,7 +33,6 @@ class GarageImplTest {
         assertTrue(garage.addCar(car));
         car  = new Car("666", "E220", "Mercedes",2.2, "blue");
         assertFalse(garage.addCar(car));
-
     }
 
     @Test
@@ -46,28 +46,36 @@ class GarageImplTest {
     void findCarByRegNumber() {
         assertEquals(cars[1],garage.findCarByRegNumber("222"));
         assertNull(garage.findCarByRegNumber("555"));
-
     }
 
     @Test
     void findCarsByModel() {
-        assertEquals(cars[1],garage.findCarsByModel("530"));
-        assertNull(garage.findCarsByModel("000"));
+        Car[] actual = garage.findCarsByModel("530");
+        Car[] expected = {cars[1]};
+        assertArrayEquals(expected,actual);
+
     }
 
     @Test
     void findCarsByCompany() {
-        assertEquals(cars[2], garage.findCarsByCompany("Audi"));
-        assertNull(garage.findCarsByCompany("XXX"));
+        Car[] actual = garage.findCarsByCompany("Audi");
+        Car[] expected = {cars[2]};
+        assertArrayEquals(expected,actual);
+
     }
 
     @Test
     void findCarsByEngine() {
-        assertEquals(cars[1], garage.findCarsByEngine(1.9, 2.1));
+        Car[] actual = garage.findCarsByEngine(1.9, 2.1);
+        Car[] expected = {cars[2]};
+        assertArrayEquals(expected,actual);
+
     }
 
     @Test
     void findCarsByColor() {
-        assertEquals(cars[2], garage.findCarsByColor("white"));
+        Car[] actual = garage.findCarsByColor("white");
+        Car[] expected = {cars[2]};
+        assertArrayEquals(expected,actual);
     }
 }
