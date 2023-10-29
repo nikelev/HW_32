@@ -2,6 +2,7 @@ package ait.homework_32_Garage.cars.dao;
 
 import ait.homework_32_Garage.cars.model.Car;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class GarageImpl implements Garage {
@@ -75,20 +76,34 @@ public class GarageImpl implements Garage {
         return findCarsByPredicate(c -> c.getColor().equals(color));
     }
 
+//    private Car[] findCarsByPredicate(Predicate<Car> predicate) {
+//        int count = 0;
+//        for (int i = 0; i < sizeActual; i++) {
+//            if (predicate.test(cars[i])) {
+//                count++;
+//            }
+//        }
+//        Car[] res = new Car[count];
+//        for (int i = 0, j = 0; j < res.length; i++) {
+//            if (predicate.test(cars[i])) {
+//                res[j++] = cars[i];
+//            }
+//        }
+//        return res;
+//    }
+
     private Car[] findCarsByPredicate(Predicate<Car> predicate) {
-        int count = 0;
-        for (int i = 0; i < sizeActual; i++) {
+
+        Car[] res = new Car[sizeActual];
+        int count=0;
+        for (int i = 0, j = 0; i < sizeActual; i++) {
             if (predicate.test(cars[i])) {
+                res[j++] = cars[i];
                 count++;
             }
         }
-        Car[] res = new Car[count];
-        for (int i = 0, j = 0; j < res.length; i++) {
-            if (predicate.test(cars[i])) {
-                res[j++] = cars[i];
-            }
-        }
-        return res;
+        return res=Arrays.copyOf(res,count);
     }
+
 
 }
